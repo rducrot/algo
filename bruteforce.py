@@ -1,0 +1,38 @@
+from constants import *
+import helpers
+import itertools
+import pandas
+
+BUDGET = 500
+
+
+def format_data(data: pandas.DataFrame):
+    data = data[data[COLUMN_NAMES[PRICE]] > 0]
+    data = data[data[COLUMN_NAMES[PROFIT]] > 0]
+    data[COLUMN_NAMES[RATIO]] = round(data[COLUMN_NAMES[PROFIT]] / data[COLUMN_NAMES[PRICE]], 2)
+    return data
+
+
+def select_actions(data: pandas.DataFrame):
+    best_results = []
+    best_profit = 0
+    for i in range(data.size):
+        for prices_list in itertools.combinations(data[COLUMN_NAMES[PRICE]], i + 1):
+            total_price = sum(prices_list)
+            if total_price <= BUDGET:
+                results = data.loc[data[COLUMN_NAMES[PRICE]].isin(prices_list)]
+                profit = sum(results[COLUMN_NAMES[PROFIT]])
+                if profit > best_profit:
+                    best_profit = profit
+                    print(best_profit)
+                    best_results.clear()
+                    for column_name, action in results.iterrows():
+                        best_results.append(action)
+    return best_results
+
+
+dataset_base = pandas.read_csv(DATASETS_DIR + DATASET_BRUTEFORCE)
+dataset = format_data(dataset_base)
+dataset_results = select_actions(dataset)
+helpers.write_results_to_csv(DATASET_BRUTEFORCE, dataset_results)
+helpers.show_results(DATASET_BRUTEFORCE, dataset_results)

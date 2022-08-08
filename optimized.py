@@ -4,17 +4,17 @@ import pandas
 
 
 def format_and_sort_data(data: pandas.DataFrame):
-    data = data[data[COLUMN_NAMES[PRICE]] > 0]
+    data = data[data[COLUMN_NAMES[PRICE]] > 0.1]
     data = data[data[COLUMN_NAMES[PROFIT]] > 0]
-    data[COLUMN_NAMES[RATIO]] = round(data[COLUMN_NAMES[PROFIT]] / data[COLUMN_NAMES[PRICE]], 2)
-    data = data.sort_values(COLUMN_NAMES[RATIO], ascending=False)
+    data[COLUMN_NAMES[NET_PROFIT]] = round(data[COLUMN_NAMES[PRICE]] * data[COLUMN_NAMES[PROFIT]] / 100, 2)
+    data = data.sort_values(COLUMN_NAMES[PROFIT], ascending=False)
     return data
 
 
 def select_actions_optimized(data: pandas.DataFrame):
     money_spent = 0
     results = []
-    for column_name, action in data.iterrows():
+    for _, action in data.iterrows():
         if money_spent + action[COLUMN_NAMES[PRICE]] <= BUDGET:
             results.append(action)
             money_spent += action[COLUMN_NAMES[PRICE]]

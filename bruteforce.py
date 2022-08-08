@@ -9,7 +9,7 @@ BUDGET = 500
 def format_data(data: pandas.DataFrame):
     data = data[data[COLUMN_NAMES[PRICE]] > 0]
     data = data[data[COLUMN_NAMES[PROFIT]] > 0]
-    data[COLUMN_NAMES[RATIO]] = round(data[COLUMN_NAMES[PROFIT]] / data[COLUMN_NAMES[PRICE]], 2)
+    data[COLUMN_NAMES[NET_PROFIT]] = round(data[COLUMN_NAMES[PRICE]] * data[COLUMN_NAMES[PROFIT]] / 100, 2)
     return data
 
 
@@ -21,7 +21,7 @@ def select_actions(data: pandas.DataFrame):
             total_price = sum(prices_list)
             if total_price <= BUDGET:
                 results = data.loc[data[COLUMN_NAMES[PRICE]].isin(prices_list)]
-                profit = sum(results[COLUMN_NAMES[PROFIT]])
+                profit = sum(results[COLUMN_NAMES[NET_PROFIT]])
                 if profit > best_profit:
                     best_profit = profit
                     print(best_profit)

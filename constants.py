@@ -1,10 +1,10 @@
 BUDGET = 500
 
-COLUMN_NAMES = ['name', 'price', 'profit', 'ratio']
+COLUMN_NAMES = ['name', 'price', 'profit', 'net profit']
 NAME = 0
 PRICE = 1
 PROFIT = 2
-RATIO = 3
+NET_PROFIT = 3
 
 DATASETS_DIR = 'datasets/'
 RESULTS_DIR = 'results/'

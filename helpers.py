@@ -16,8 +16,8 @@ def show_results(file, results):
 
     for result in results:
         actions += 1
-        total_sum += result[1]
-        profit += result[2]
+        total_sum += result[PRICE]
+        profit += result[NET_PROFIT]
 
     print(file)
     print(f'Actions achetées : {actions}')

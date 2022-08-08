@@ -1,15 +1,11 @@
-name,price,profit,ratio
-Action-2,30,10,0.33
-Action-3,50,15,0.3
-Action-4,70,20,0.29
-Action-5,60,17,0.28
-Action-6,80,25,0.31
-Action-7,22,7,0.32
-Action-8,26,11,0.42
-Action-10,34,27,0.79
-Action-11,42,17,0.4
-Action-13,38,23,0.61
-Action-16,8,8,1.0
-Action-17,4,12,3.0
+name,price,profit,net profit
+Action-4,70,20,14.0
+Action-5,60,17,10.2
+Action-6,80,25,20.0
+Action-8,26,11,2.86
+Action-10,34,27,9.18
+Action-11,42,17,7.14
+Action-13,38,23,8.74
 Action-18,10,14,1.4
-Action-19,24,21,0.88
+Action-19,24,21,5.04
+Action-20,114,18,20.52

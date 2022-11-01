@@ -2,8 +2,8 @@ from constants import *
 import csv
 
 
-def write_results_to_csv(file, dataset_results):
-    with open(RESULTS_DIR + RESULT_PREFIX + file, 'w', newline='') as csvfile:
+def write_results_to_csv(file, prefix, dataset_results):
+    with open(RESULTS_DIR + prefix + file, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         writer.writerow(COLUMN_NAMES)
         writer.writerows(dataset_results)

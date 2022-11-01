@@ -3,13 +3,11 @@ import helpers
 import itertools
 import pandas
 
-BUDGET = 500
-
 
 def format_data(data: pandas.DataFrame):
     data = data[data[COLUMN_NAMES[PRICE]] > 0]
-    data = data[data[COLUMN_NAMES[PROFIT]] > 0]
-    data[COLUMN_NAMES[NET_PROFIT]] = round(data[COLUMN_NAMES[PRICE]] * data[COLUMN_NAMES[PROFIT]] / 100, 2)
+    data = data[data[COLUMN_NAMES[PROFIT_PERCENT]] > 0]
+    data[COLUMN_NAMES[NET_PROFIT]] = round(data[COLUMN_NAMES[PRICE]] * data[COLUMN_NAMES[PROFIT_PERCENT]] / 100, 2)
     return data
 
 
@@ -31,8 +29,8 @@ def select_actions(data: pandas.DataFrame):
     return best_results
 
 
-dataset_base = pandas.read_csv(DATASETS_DIR + DATASET_BRUTEFORCE)
+dataset_base = pandas.read_csv(DATASETS_DIR + DATASETS[BRUTEFORCE_INDEX])
 dataset = format_data(dataset_base)
 dataset_results = select_actions(dataset)
-helpers.write_results_to_csv(DATASET_BRUTEFORCE, dataset_results)
-helpers.show_results(DATASET_BRUTEFORCE, dataset_results)
+helpers.write_results_to_csv(DATASETS[BRUTEFORCE_INDEX], BRUTEFORCE_PREFIX, dataset_results)
+helpers.show_results(DATASETS[BRUTEFORCE_INDEX], dataset_results)

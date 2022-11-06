@@ -5,6 +5,11 @@ import pandas
 
 
 def format_data(data: pandas.DataFrame):
+    """
+    Remove errors from the dataset.
+    :param data: DataFrame
+    :return: data: DataFrame
+    """
     data = data[data[COLUMN_NAMES[PRICE]] > 0]
     data = data[data[COLUMN_NAMES[PROFIT_PERCENT]] > 0]
     data[COLUMN_NAMES[NET_PROFIT]] = round(data[COLUMN_NAMES[PRICE]] * data[COLUMN_NAMES[PROFIT_PERCENT]] / 100, 2)
@@ -12,6 +17,11 @@ def format_data(data: pandas.DataFrame):
 
 
 def select_actions(data: pandas.DataFrame):
+    """
+    Return a list of actions with the best profit regarding a budget.
+    :param data: DataFrame
+    :return: best_results: list
+    """
     best_results = []
     best_profit = 0
     for i in range(data.size):
@@ -24,7 +34,7 @@ def select_actions(data: pandas.DataFrame):
                     best_profit = profit
                     print(best_profit)
                     best_results.clear()
-                    for column_name, action in results.iterrows():
+                    for _, action in results.iterrows():
                         best_results.append(action)
     return best_results
 

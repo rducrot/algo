@@ -27,6 +27,7 @@ Depuis le dossier du programme :
 pipenv install # Installer les dépendances du projet
 pipenv shell # Activer l'environnement virtuel
 ```
+*Si la commande ```pipenv install``` retourne une erreur, s'assurer de bien utiliser la version 3.8 de Python et que le paquet ```python3.8-distutils``` est bien installé.* 
 
 ## Exécution
 

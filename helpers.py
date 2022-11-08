@@ -1,5 +1,24 @@
 from constants import *
 import csv
+import pandas
+
+
+def format_data(data: pandas.DataFrame, sort_data=False):
+    """
+    Remove errors from the dataset.
+    :param data: DataFrame
+    :param sort_data: bool
+    Sort data by best profit.
+    :return: data: DataFrame
+    """
+    data = data[data[COLUMN_NAMES[PRICE]] > 0.1]
+    data = data[data[COLUMN_NAMES[PROFIT_PERCENT]] > 0]
+    data[COLUMN_NAMES[NET_PROFIT]] = round(data[COLUMN_NAMES[PRICE]] * data[COLUMN_NAMES[PROFIT_PERCENT]] / 100, 2)
+
+    if sort_data:
+        data = data.sort_values(COLUMN_NAMES[PROFIT_PERCENT], ascending=False)
+
+    return data
 
 
 def write_results_to_csv(file: str, prefix: str, dataset_results: list):

@@ -3,19 +3,6 @@ import helpers
 import pandas
 
 
-def format_and_sort_data(data: pandas.DataFrame):
-    """
-    Remove errors from the dataset and sort it by best profit.
-    :param data: DataFrame
-    :return: data: DataFrame
-    """
-    data = data[data[COLUMN_NAMES[PRICE]] > 0.1]
-    data = data[data[COLUMN_NAMES[PROFIT_PERCENT]] > 0]
-    data[COLUMN_NAMES[NET_PROFIT]] = round(data[COLUMN_NAMES[PRICE]] * data[COLUMN_NAMES[PROFIT_PERCENT]] / 100, 2)
-    data = data.sort_values(COLUMN_NAMES[PROFIT_PERCENT], ascending=False)
-    return data
-
-
 def select_actions_optimized(data: pandas.DataFrame):
     """
     Return a list of actions with the best profit regarding a budget.
@@ -33,7 +20,7 @@ def select_actions_optimized(data: pandas.DataFrame):
 
 for file in DATASETS:
     dataset_base = pandas.read_csv(DATASETS_DIR + file)
-    dataset = format_and_sort_data(dataset_base)
+    dataset = helpers.format_data(dataset_base, sort_data=True)
     dataset_results = select_actions_optimized(dataset)
     helpers.write_results_to_csv(file, OPTIMIZED_PREFIX, dataset_results)
     helpers.show_results(file, dataset_results)

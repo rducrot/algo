@@ -4,18 +4,6 @@ import itertools
 import pandas
 
 
-def format_data(data: pandas.DataFrame):
-    """
-    Remove errors from the dataset.
-    :param data: DataFrame
-    :return: data: DataFrame
-    """
-    data = data[data[COLUMN_NAMES[PRICE]] > 0]
-    data = data[data[COLUMN_NAMES[PROFIT_PERCENT]] > 0]
-    data[COLUMN_NAMES[NET_PROFIT]] = round(data[COLUMN_NAMES[PRICE]] * data[COLUMN_NAMES[PROFIT_PERCENT]] / 100, 2)
-    return data
-
-
 def select_actions(data: pandas.DataFrame):
     """
     Return a list of actions with the best profit regarding a budget.
@@ -40,7 +28,7 @@ def select_actions(data: pandas.DataFrame):
 
 
 dataset_base = pandas.read_csv(DATASETS_DIR + DATASETS[BRUTEFORCE_INDEX])
-dataset = format_data(dataset_base)
+dataset = helpers.format_data(dataset_base)
 dataset_results = select_actions(dataset)
 helpers.write_results_to_csv(DATASETS[BRUTEFORCE_INDEX], BRUTEFORCE_PREFIX, dataset_results)
 helpers.show_results(DATASETS[BRUTEFORCE_INDEX], dataset_results)
